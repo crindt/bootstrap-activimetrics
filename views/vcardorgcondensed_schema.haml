@@ -1,0 +1,46 @@
+%div.vcard.condensed(id="vcard-#{card.name.formatted.gsub(/ ,/,'-')}" itemscope itemtype="http://schema.org/LocalBusiness")
+  %h1.n.fn.org(itemprop="name")
+    = card.name.fullname
+  %div.adr(itemprop="address" itemscope itemtype="http://schema.org/PostalAddress")
+    %span(itemprop="streetAddress")
+      - unless card.address && card.address.street() == ""
+        = succeed "," do
+          %span.street-address= card.address.street()
+      - unless card.address && card.address.extended.empty?
+        = succeed "," do
+          %span.extended-address= card.address.extended
+    - unless card.address && card.address.locality == ""
+      = succeed "," do
+        %span.locality(itemprop="addressLocality")= card.address.locality()
+    - unless card.address && card.address.region == ""
+      %span.region(itemprop="addressRegion")
+        = card.address.region()
+    - unless card.address && card.address.postalcode == ""
+      %span.postal-code(itemprop="postalCode")
+        = card.address.postalcode()
+  %ul
+    - card.telephones.each do |tel|
+      - if strip_or_str(tel.capability.first) == "voice"
+        %li.tel
+          %span.type Voice
+          %span.type Work
+          tel:
+          %span.value(itemprop="telephone")
+            = tel
+    - card.telephones.each do |tel|
+      - if strip_or_str(tel.capability.first) == "fax"
+        %li.tel
+          %span.type.fax Fax
+          fax:
+          %span.value(itemprop="faxNumber")
+            = tel
+    - unless card.email == nil || card.email == ""
+      %li
+        email:
+        %a.email(href="mailto:#{card.email}" itemprop="email") 
+          = card.email
+
+    
+      
+  
+

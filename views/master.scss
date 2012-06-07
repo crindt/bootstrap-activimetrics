@@ -1,11 +1,11 @@
 body {
-    padding-top: 40px;
-    font-family: 'Cabin Condensed', sans-serif;
+    padding-top: 0px;
+    /*font-family: 'Cabin Condensed', sans-serif;*/
 
     font-size: 18px;
 
     p {
-        //font-family: 'Cabin Condensed', sans-serif;
+        /*font-family: 'Cabin Condensed', sans-serif;*/
         font-size: 18px;
         line-height: 1.25em;
     }
@@ -157,3 +157,15 @@ aside {
     border-radius: 6px;  /* to be consistent with hero unit */
 }
 
+section {
+    margin-top: 800px;
+    &#top {
+        margin-top: 0px;
+    }
+
+    &> section {
+        margin-top: 0px;
+    }
+}
+
+@import "vcard.scss"

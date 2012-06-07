@@ -1,0 +1,66 @@
+%div.vcard(id="vcard-#{card.name.fullname.gsub(/ ,/,'-')}")
+  %header
+    - if card['GEO'] != nil
+      %a(href="http://maps.google.com/maps?q=to:#{card['GEO']}&h1=en&vpsrc=0&t=m&z=14" title="Click image to get directions using google maps")
+        %img.mapphoto(src="http://maps.googleapis.com/maps/api/staticmap?zoom=12&size=250x250&scale=10&maptype=roadmap&markers=size:mid%7Ccolor:red%7Clabel:A%7C#{card['GEO']}&center=#{card['GEO']}&sensor=true")
+  %section.detail
+    %div.adr
+      - unless card.address && card.address.street() == ""
+        %span.street-address   
+          = card.address.street()
+        %br
+      
+      - unless card.address && card.address.extended.empty?
+        %span.extended-address 
+          = card.address.extended
+        %br
+      - unless card.address && card.address.locality == ""
+        = succeed "," do
+          %span.locality= card.address.locality()
+      - unless card.address && card.address.region == ""
+        %span.region           
+          = card.address.region()
+      - unless card.address && card.address.postalcode == ""
+        %span.postal-code      
+          = card.address.postalcode()
+    %h5.contact Contact:
+    %table.econtacts
+      - card.telephones.each do |tel|
+        - if strip_or_str(tel.capability.first) == "voice"
+          %tr.tel
+            %th
+              %div
+                %span.type Voice
+                %span.type Work
+                tel:
+            %td
+              %span.value            
+                = tel
+      - card.telephones.each do |tel|
+        - if strip_or_str(tel.capability.first) == "fax"
+          %tr.tel
+            %th
+              %div
+                %span.type.fax Fax
+                fax:
+            %td
+              %span.value            
+                = tel
+      - unless card.email == nil || card.email == ""
+        %tr      
+          %th
+            email:
+          %td
+            %a.email(href="mailto:#{card.email}") 
+              = card.email
+      - unless card['URL'] == nil || card['URL'] == ""
+        %tr
+          %th
+            web:
+          %td      
+            %a.url(target="blank" href="#{card['URL']}") On the web
+
+    
+      
+  
+

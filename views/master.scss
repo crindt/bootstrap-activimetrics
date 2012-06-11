@@ -157,15 +157,8 @@ aside {
     border-radius: 6px;  /* to be consistent with hero unit */
 }
 
-section {
-    margin-top: 800px;
-    &#top {
-        margin-top: 0px;
-    }
-
-    &> section {
-        margin-top: 0px;
-    }
+section.main {
+    margin-bottom: 1000px;
 }
 
 @import "vcard.scss"

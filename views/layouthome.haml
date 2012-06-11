@@ -34,3 +34,12 @@
       = yield
     .analytics
       = haml :analytics, :layout => false
+
+    %script{:src => 'https://github.com/kswedberg/jquery-smooth-scroll/raw/master/jquery.smooth-scroll.min.js', :type => 'text/javascript'}
+
+    :javascript
+      /* Load tooltips */
+      $(document).ready(function(){
+        $('[title]').tooltip({placement:'bottom'});
+        $('#mainnav a').smoothScroll();
+        });

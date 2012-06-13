@@ -1,0 +1,16 @@
+%ul.thumbnails
+  - pages.each do |page|
+    %li{:class=>span}
+      .thumbnail
+        %h2= page.link_text
+        %div
+          -if page.metadata("image")
+            %img(style="width:200px;float:right" src='attachments/img/#{page.metadata("image")}')
+        - if page.summary.nil? || page.summary.empty?
+          ~ page.body(self)
+        - else
+          ~ page.summary
+          - unless nolink
+            %p.read_more
+              %a(href="#{url(page.abspath)}")= page.read_more
+      

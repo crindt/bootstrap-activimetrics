@@ -47,6 +47,7 @@ module Nesta
       end
     end
   end
+
   class App
     # Uncomment the Rack::Static line below if your theme has assets
     # (i.e images or JavaScript).
@@ -60,6 +61,15 @@ module Nesta
     end
 
     helpers do
+
+      def email_link(address)
+        haml_tag :a, :href => ("mailto:#{address}") do
+          haml_tag :code do
+            haml_concat address
+          end
+        end
+      end
+
       def container
         if @page && @page.flagged_as?('fluid')
           'container-fluid'
